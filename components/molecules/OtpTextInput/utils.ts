@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
   renderInput: {
     borderWidth: 1,
     borderRadius: 8,
-    borderColor: Colors.amber,
+    borderColor: Colors.romanSilver,
     paddingVertical: 16,
     minHeight: 64
   },
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'Inter-Bold'
   },
   focused: {
-    borderColor: Colors.philippineOrange
+    borderColor: Colors.tintColor
   }
 });
 

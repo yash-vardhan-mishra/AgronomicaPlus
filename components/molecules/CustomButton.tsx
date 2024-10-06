@@ -20,7 +20,7 @@ const CustomButton: React.FC<CustomButtonProps & PressableProps> = ({ label, onP
 }
 
 const styles = StyleSheet.create({
-  buttonStyle: { borderRadius: 8, backgroundColor: Colors.amber, padding: 16, alignItems: 'center', marginTop: 32 }
+  buttonStyle: { borderRadius: 8, backgroundColor: Colors.tintColor, padding: 16, alignItems: 'center', marginTop: 32 }
 })
 
 export default CustomButton

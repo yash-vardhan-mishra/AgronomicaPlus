@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ title, onBackPress, isBackButtonVisible
                 <View style={styles.spacer} />
             )}
 
-            <CustomText style={titleStyles()} size={18} weight='500'>
+            <CustomText style={titleStyles()} size={18} weight='700' color={Colors.tintColor}>
                 {title}
             </CustomText>
 
