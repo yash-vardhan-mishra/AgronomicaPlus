@@ -29,7 +29,6 @@ interface Timesheet {
 }
 
 const Timesheets: React.FC<TimesheetsProps> = ({ navigation }) => {
-    // Set the type of timesheets as Timesheet[]
     const [timesheets, setTimesheets] = useState<Timesheet[]>([]);
     const { authToken } = useAuth(); // Get authToken from AuthContext
     const { setLoading } = useLoading();
@@ -50,6 +49,16 @@ const Timesheets: React.FC<TimesheetsProps> = ({ navigation }) => {
         fetchTimesheets();
     }, [authToken]);
 
+    // Function to format minutes into hours and minutes
+    const formatMinutesWorked = (minutes: number) => {
+        if (minutes >= 60) {
+            const hours = Math.floor(minutes / 60);
+            const remainingMinutes = minutes % 60;
+            return `${hours} hour${hours > 1 ? 's' : ''} ${remainingMinutes} minute${remainingMinutes !== 1 ? 's' : ''}`;
+        }
+        return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
+    };
+
     const renderTimesheets = () => {
         if (timesheets.length === 0) {
             return <CustomText>No Timesheets available</CustomText>;
@@ -59,20 +68,17 @@ const Timesheets: React.FC<TimesheetsProps> = ({ navigation }) => {
             const clockInDate = new Date(timesheet.clockInTime);
             const clockOutDate = timesheet.clockOutTime ? new Date(timesheet.clockOutTime) : null;
 
-            // Determine how to show the date (Today, Yesterday, or actual date)
             const dateWorked = isToday(new Date(timesheet.dateWorked))
                 ? 'Today'
                 : isYesterday(new Date(timesheet.dateWorked))
                     ? 'Yesterday'
                     : format(new Date(timesheet.dateWorked), 'MMMM dd, yyyy'); // Full date
 
-            // Format punch-in time in a more readable way
             const clockInTime = format(clockInDate, 'h:mm a'); // "5:30 PM" format
             const clockOutTime = clockOutDate
                 ? format(clockOutDate, 'h:mm a') // "5:45 PM" format
                 : 'Still working';
 
-            // Show how long ago the punch-in happened
             const clockInDistance = formatDistanceToNow(clockInDate, { addSuffix: true }); // e.g. "5 minutes ago"
 
             return (
@@ -80,7 +86,13 @@ const Timesheets: React.FC<TimesheetsProps> = ({ navigation }) => {
                     <CustomText weight='600'>Date Worked: <CustomText> {dateWorked} </CustomText></CustomText>
                     <CustomText weight='600'>Punch In: <CustomText> {clockInTime} ({clockInDistance}) </CustomText></CustomText>
                     <CustomText weight='600'>Punch Out: <CustomText> {clockOutTime} </CustomText></CustomText>
-                    {timesheet.minutesWorked ? <CustomText>Minutes Worked: {timesheet.minutesWorked}</CustomText> : null}
+                    {timesheet.minutesWorked ? (
+                        <CustomText weight='600'>Work duration:
+                            <CustomText>
+                                {' '}{formatMinutesWorked(timesheet.minutesWorked)}
+                            </CustomText>
+                        </CustomText>
+                    ) : null}
                 </Pressable>
             );
         });
