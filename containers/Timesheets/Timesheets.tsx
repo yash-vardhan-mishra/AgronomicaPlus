@@ -30,7 +30,7 @@ interface Timesheet {
 
 const Timesheets: React.FC<TimesheetsProps> = ({ navigation }) => {
     // Set the type of timesheets as Timesheet[]
-    const [timesheets, setTimesheets] = useState<Timesheet[]>([]); 
+    const [timesheets, setTimesheets] = useState<Timesheet[]>([]);
     const { authToken } = useAuth(); // Get authToken from AuthContext
     const { setLoading } = useLoading();
 
@@ -77,10 +77,10 @@ const Timesheets: React.FC<TimesheetsProps> = ({ navigation }) => {
 
             return (
                 <Pressable key={index} style={styles.timesheetItem}>
-                    <CustomText>Date Worked: {dateWorked}</CustomText>
-                    <CustomText>Punch In: {clockInTime} ({clockInDistance})</CustomText>
-                    <CustomText>Punch Out: {clockOutTime}</CustomText>
-                    <CustomText>Minutes Worked: {timesheet.minutesWorked}</CustomText>
+                    <CustomText weight='600'>Date Worked: <CustomText> {dateWorked} </CustomText></CustomText>
+                    <CustomText weight='600'>Punch In: <CustomText> {clockInTime} ({clockInDistance}) </CustomText></CustomText>
+                    <CustomText weight='600'>Punch Out: <CustomText> {clockOutTime} </CustomText></CustomText>
+                    {timesheet.minutesWorked ? <CustomText>Minutes Worked: {timesheet.minutesWorked}</CustomText> : null}
                 </Pressable>
             );
         });

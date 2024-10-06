@@ -59,7 +59,7 @@ const Auth = () => {
                     </CustomText>
                     <View style={styles.inputContainer}>
                         <CustomTextBox autoCapitalize='none' autoCorrect={false} keyboardType='email-address' style={styles.emailAddressContainer} value={email} onChangeText={(val) => handleChange('email', val)} placeholder='Email' />
-                        <CustomTextBox autoCapitalize='none' maxLength={32} value={password} onChangeText={(val) => handleChange('password', val)} placeholder='Password' />
+                        <CustomTextBox autoCapitalize='none' secureTextEntry maxLength={32} value={password} onChangeText={(val) => handleChange('password', val)} placeholder='Password' />
                         <CustomButton disabled={!isButtonEnabled} label='Send OTP' onPress={submitForm} />
                     </View>
                 </View>
